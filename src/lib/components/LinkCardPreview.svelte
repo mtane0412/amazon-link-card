@@ -16,11 +16,17 @@
 </script>
 
 {#if metadata}
-	<div class="mb-6">
-		<h2 class="text-xl font-bold mb-3">プレビュー</h2>
-		<div class="border rounded p-4 bg-gray-50">
+	<div class="card p-6 md:p-8">
+		<div class="mb-6">
+			<h2 class="text-2xl md:text-3xl font-semibold mb-2 text-[var(--color-ink)]">プレビュー</h2>
+			<p class="text-[var(--color-stone)] text-sm">
+				実際にGhostに埋め込まれるリンクカードの見た目を確認できます
+			</p>
+		</div>
+
+		<div class="bg-gradient-to-br from-[var(--color-pearl)]/30 to-transparent rounded-lg p-6">
 			{@html `
-      <div class="amazon-link-card" style="max-width: 600px; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; display: flex; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin: 20px auto;">
+      <div class="amazon-link-card" style="max-width: 600px; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; display: flex; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin: 20px auto; background: white;">
         <a href="${metadata.url}" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit; display: flex; flex-direction: row;">
           <div style="flex: 0 0 180px; background: #f7f7f7; display: flex; align-items: center; justify-content: center; padding: 16px;">
             <img src="${metadata.image}" alt="${metadata.title}" style="max-width: 100%; max-height: 200px; object-fit: contain;">

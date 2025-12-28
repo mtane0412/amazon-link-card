@@ -119,30 +119,108 @@
 	}
 </script>
 
-<div class="container mx-auto px-4 py-8 max-w-4xl">
-	<header class="mb-8">
-		<h1 class="text-3xl font-bold mb-2">Amazon Link Card Generator</h1>
-		<p class="text-gray-600">Ghost用のAmazonリンクカードHTMLを生成します</p>
+<div class="min-h-screen">
+	<!-- ヘッダーセクション -->
+	<header class="border-b border-[var(--color-pearl)] bg-white/80 backdrop-blur-sm sticky top-0 z-40">
+		<div class="container mx-auto px-6 py-6 max-w-5xl">
+			<div class="flex items-center justify-between">
+				<div class="animate-fade-in-up">
+					<h1 class="text-4xl md:text-5xl font-bold mb-1.5 text-[var(--color-ink)]">
+						Amazon Link Card
+					</h1>
+					<p class="text-[var(--color-charcoal)] text-sm md:text-base font-light">
+						Ghost CMS向けの美しいリンクカードを生成
+					</p>
+				</div>
+				<button
+					onclick={() => (showCookieModal = true)}
+					class="animate-fade-in-up delay-100 px-4 py-2 text-sm text-[var(--color-accent)] border border-[var(--color-accent)]/30 rounded-lg hover:bg-[var(--color-accent)]/5 transition-all duration-200"
+				>
+					<span class="hidden md:inline">Cookie設定</span>
+					<span class="md:hidden">設定</span>
+				</button>
+			</div>
+		</div>
 	</header>
 
-	<div class="mb-4">
-		<button onclick={() => (showCookieModal = true)} class="text-sm text-blue-600 hover:underline">
-			Cookie設定
-		</button>
-	</div>
+	<!-- メインコンテンツ -->
+	<main class="container mx-auto px-6 py-12 max-w-5xl">
+		<!-- URL入力セクション -->
+		<section class="mb-12 animate-fade-in-up delay-200">
+			<div class="card p-8 md:p-10">
+				<div class="mb-6">
+					<h2 class="text-2xl md:text-3xl font-semibold mb-2 text-[var(--color-ink)]">
+						商品URLを入力
+					</h2>
+					<p class="text-[var(--color-stone)] text-sm">
+						Amazon.co.jpの商品URLを貼り付けてください
+					</p>
+				</div>
+				<URLInput onSubmit={handleSubmit} isLoading={linkCard.isLoading} />
 
-	<URLInput onSubmit={handleSubmit} isLoading={linkCard.isLoading} />
+				{#if linkCard.error}
+					<div
+						class="mt-4 bg-[var(--color-error)]/5 border-l-4 border-[var(--color-error)] rounded-r-lg p-4 animate-fade-in"
+					>
+						<p class="text-[var(--color-error)] font-medium text-sm">{linkCard.error}</p>
+					</div>
+				{/if}
+			</div>
+		</section>
 
-	{#if linkCard.error}
-		<div class="bg-red-50 border border-red-200 rounded p-4 mb-4">
-			<p class="text-red-800">{linkCard.error}</p>
+		<!-- プレビュー & コード出力セクション -->
+		{#if linkCard.metadata}
+			<section class="space-y-8">
+				<div class="animate-fade-in-up delay-300">
+					<LinkCardPreview metadata={linkCard.metadata} />
+				</div>
+				<div class="animate-fade-in-up delay-400">
+					<CodeOutput htmlCode={linkCard.htmlCode} />
+				</div>
+			</section>
+		{/if}
+
+		<!-- 使い方ガイド -->
+		{#if !linkCard.metadata}
+			<section class="mt-16 animate-fade-in-up delay-300">
+				<div class="card p-8 bg-gradient-to-br from-[var(--color-accent)]/5 to-transparent">
+					<h3 class="text-xl font-semibold mb-4 text-[var(--color-ink)]">使い方</h3>
+					<ol class="space-y-3 text-[var(--color-charcoal)]">
+						<li class="flex items-start gap-3">
+							<span
+								class="flex-shrink-0 w-6 h-6 rounded-full bg-[var(--color-accent)] text-white text-sm flex items-center justify-center font-medium"
+								>1</span
+							>
+							<span>Amazon.co.jpで商品ページを開き、URLをコピーします</span>
+						</li>
+						<li class="flex items-start gap-3">
+							<span
+								class="flex-shrink-0 w-6 h-6 rounded-full bg-[var(--color-accent)] text-white text-sm flex items-center justify-center font-medium"
+								>2</span
+							>
+							<span>上記の入力欄にURLを貼り付けて「生成」ボタンをクリック</span>
+						</li>
+						<li class="flex items-start gap-3">
+							<span
+								class="flex-shrink-0 w-6 h-6 rounded-full bg-[var(--color-accent)] text-white text-sm flex items-center justify-center font-medium"
+								>3</span
+							>
+							<span>生成されたHTMLコードをコピーしてGhost CMSに貼り付け</span>
+						</li>
+					</ol>
+				</div>
+			</section>
+		{/if}
+	</main>
+
+	<!-- フッター -->
+	<footer class="border-t border-[var(--color-pearl)] mt-20 py-8">
+		<div class="container mx-auto px-6 max-w-5xl text-center">
+			<p class="text-[var(--color-stone)] text-sm">
+				SvelteKit × Cloudflare Pages で構築されています
+			</p>
 		</div>
-	{/if}
-
-	{#if linkCard.metadata}
-		<LinkCardPreview metadata={linkCard.metadata} />
-		<CodeOutput htmlCode={linkCard.htmlCode} />
-	{/if}
+	</footer>
 
 	<CookieSettings isOpen={showCookieModal} onClose={() => (showCookieModal = false)} />
 

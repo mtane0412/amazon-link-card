@@ -1,3 +1,205 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Work+Sans:wght@300;400;500;600&display=swap');
+
+@import 'tailwindcss';
+
+/* カスタムプロパティ */
+:root {
+	/* カラーパレット - Editorial/Magazine スタイル */
+	--color-ink: #1a1a2e;
+	--color-ink-light: #2d2d44;
+	--color-charcoal: #4a4a5c;
+	--color-stone: #8a8a9e;
+	--color-pearl: #e8e8ef;
+	--color-paper: #fafafa;
+	--color-accent-deep: #2a4365;
+	--color-accent: #3b5998;
+	--color-accent-light: #5a7bc0;
+	--color-success: #2d6a4f;
+	--color-error: #9d2235;
+	--color-warning: #c77700;
+
+	/* タイポグラフィ */
+	--font-display: 'Cormorant Garamond', serif;
+	--font-body: 'Work Sans', sans-serif;
+}
+
+body {
+	font-family: var(--font-body);
+	color: var(--color-ink);
+	background: linear-gradient(to bottom, #fafafa 0%, #f0f0f5 100%);
+	min-height: 100vh;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: var(--font-display);
+	font-weight: 600;
+	letter-spacing: -0.02em;
+}
+
+/* アニメーション */
+@keyframes fadeInUp {
+	from {
+		opacity: 0;
+		transform: translateY(20px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes slideInFromRight {
+	from {
+		opacity: 0;
+		transform: translateX(30px);
+	}
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+@keyframes shimmer {
+	0% {
+		background-position: -1000px 0;
+	}
+	100% {
+		background-position: 1000px 0;
+	}
+}
+
+.animate-fade-in-up {
+	animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-fade-in {
+	animation: fadeIn 0.4s ease-out forwards;
+}
+
+.animate-slide-in-right {
+	animation: slideInFromRight 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-shimmer {
+	animation: shimmer 2s infinite linear;
+	background: linear-gradient(
+		90deg,
+		rgba(255, 255, 255, 0) 0%,
+		rgba(255, 255, 255, 0.4) 50%,
+		rgba(255, 255, 255, 0) 100%
+	);
+	background-size: 1000px 100%;
+}
+
+/* スタガードアニメーション遅延 */
+.delay-100 {
+	animation-delay: 0.1s;
+}
+.delay-200 {
+	animation-delay: 0.2s;
+}
+.delay-300 {
+	animation-delay: 0.3s;
+}
+.delay-400 {
+	animation-delay: 0.4s;
+}
+
+/* カスタムコンポーネントスタイル */
+.btn-primary {
+	padding: 0.75rem 1.5rem;
+	background-color: var(--color-accent);
+	color: white;
+	border-radius: 0.5rem;
+	font-weight: 500;
+	transition: all 0.2s;
+	cursor: pointer;
+	border: none;
+}
+
+.btn-primary:hover:not(:disabled) {
+	background-color: var(--color-accent-light);
+	box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+	transform: translateY(-2px);
+}
+
+.btn-primary:active:not(:disabled) {
+	transform: translateY(0);
+}
+
+.btn-primary:disabled {
+	background-color: var(--color-stone);
+	cursor: not-allowed;
+	transform: none;
+}
+
+.btn-secondary {
+	padding: 0.75rem 1.5rem;
+	border: 2px solid var(--color-accent);
+	color: var(--color-accent);
+	border-radius: 0.5rem;
+	font-weight: 500;
+	transition: all 0.2s;
+	cursor: pointer;
+	background: transparent;
+}
+
+.btn-secondary:hover:not(:disabled) {
+	background-color: var(--color-accent);
+	color: white;
+	box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.btn-secondary:disabled {
+	border-color: var(--color-stone);
+	color: var(--color-stone);
+	cursor: not-allowed;
+}
+
+/* カスタムインプットスタイル */
+.input-field {
+	width: 100%;
+	padding: 0.875rem 1.25rem;
+	border: 2px solid var(--color-pearl);
+	border-radius: 0.5rem;
+	transition: all 0.2s;
+}
+
+.input-field:focus {
+	outline: none;
+	border-color: var(--color-accent);
+	box-shadow: 0 0 0 4px rgba(59, 89, 152, 0.1);
+}
+
+.input-field:disabled {
+	background-color: var(--color-pearl);
+	cursor: not-allowed;
+}
+
+/* カード */
+.card {
+	background-color: white;
+	border-radius: 0.75rem;
+	box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+	border: 1px solid var(--color-pearl);
+	transition: all 0.3s;
+}
+
+.card-hover:hover {
+	box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+	transform: translateY(-4px);
+}
