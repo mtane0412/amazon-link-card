@@ -41,9 +41,9 @@ export function generateLinkCardHTML(metadata: AmazonMetadata): string {
 
     <div style="flex: 1; padding: 16px; display: flex; flex-direction: column; justify-content: space-between;">
       <div>
-        <h3 style="margin: 0 0 8px 0; font-size: 16px; font-weight: 600; line-height: 1.4; color: #111;">
+        <div style="margin: 0 0 8px 0; font-size: 16px; font-weight: 600; line-height: 1.4; color: #111;">
           ${escapeHTML(metadata.title)}
-        </h3>
+        </div>
         <p style="margin: 0 0 12px 0; font-size: 14px; color: #666; line-height: 1.5;">
           ${escapeHTML(metadata.description)}
         </p>
