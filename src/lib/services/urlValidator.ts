@@ -17,6 +17,7 @@ export function validateAmazonURL(url: string): {
 	try {
 		const parsed = new URL(url);
 
+		// Amazon標準ドメイン
 		const validDomains = [
 			'amazon.co.jp',
 			'amazon.com',
@@ -36,14 +37,26 @@ export function validateAmazonURL(url: string): {
 			'www.amazon.ca'
 		];
 
-		if (!validDomains.some((d) => parsed.hostname === d)) {
+		// Amazon短縮URLドメイン（amzn.to, a.co）
+		const shortUrlDomains = ['amzn.to', 'a.co'];
+
+		const isStandardDomain = validDomains.some((d) => parsed.hostname === d);
+		const isShortUrl = shortUrlDomains.some((d) => parsed.hostname === d);
+
+		if (!isStandardDomain && !isShortUrl) {
 			return {
 				isValid: false,
 				error: 'AmazonのURLを入力してください'
 			};
 		}
 
-		// 商品ページのパターンチェック（/dp/ または /gp/product/）
+		// 短縮URLの場合は商品ページパターンチェックをスキップ
+		// （リダイレクト後に商品ページになるため）
+		if (isShortUrl) {
+			return { isValid: true };
+		}
+
+		// 標準ドメインの場合は商品ページのパターンチェック（/dp/ または /gp/product/）
 		if (!parsed.pathname.includes('/dp/') && !parsed.pathname.includes('/gp/product/')) {
 			return {
 				isValid: false,

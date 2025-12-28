@@ -57,7 +57,11 @@ export async function onRequest(context: { request: Request; env: Env }) {
 			headers['Cookie'] = cookie;
 		}
 
-		const response = await fetch(url, { headers });
+		const response = await fetch(url, {
+			headers,
+			// リダイレクトを自動追跡（短縮URL対応）
+			redirect: 'follow'
+		});
 
 		// 503エラー（ボット検出）の場合
 		if (response.status === 503) {
@@ -81,7 +85,9 @@ export async function onRequest(context: { request: Request; env: Env }) {
 		}
 
 		const html = await response.text();
-		const metadata = parseOGP(html, url);
+		// リダイレクト後の最終URLを使用（短縮URLの場合に実際の商品URLになる）
+		const finalUrl = response.url || url;
+		const metadata = parseOGP(html, finalUrl);
 
 		return new Response(JSON.stringify(metadata), {
 			status: 200,

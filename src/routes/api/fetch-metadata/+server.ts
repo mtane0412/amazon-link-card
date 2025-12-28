@@ -38,7 +38,11 @@ export const POST: RequestHandler = async ({ request }) => {
 			headers['Cookie'] = cookie;
 		}
 
-		const response = await fetch(url, { headers });
+		const response = await fetch(url, {
+			headers,
+			// リダイレクトを自動追跡（短縮URL対応）
+			redirect: 'follow'
+		});
 
 		// 503エラー（ボット検出）の場合
 		if (response.status === 503) {
@@ -56,7 +60,9 @@ export const POST: RequestHandler = async ({ request }) => {
 		}
 
 		const html = await response.text();
-		const metadata = parseOGP(html, url);
+		// リダイレクト後の最終URLを使用（短縮URLの場合に実際の商品URLになる）
+		const finalUrl = response.url || url;
+		const metadata = parseOGP(html, finalUrl);
 
 		return json(metadata);
 	} catch (error) {
