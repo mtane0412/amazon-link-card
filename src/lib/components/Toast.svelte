@@ -12,7 +12,7 @@
 		type: 'success' | 'error' | 'warning';
 	}
 
-	let { message, type = 'success' }: Props = $props();
+	const { message, type = 'success' }: Props = $props();
 
 	const colors = {
 		success: 'bg-[var(--color-success)] border-[var(--color-success)]',

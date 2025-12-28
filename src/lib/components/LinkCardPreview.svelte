@@ -12,7 +12,7 @@
 		metadata: AmazonMetadata | null;
 	}
 
-	let { metadata }: Props = $props();
+	const { metadata }: Props = $props();
 </script>
 
 {#if metadata}

@@ -133,7 +133,7 @@ function parseOGP(html: string, originalUrl: string): AmazonMetadata {
 				if (imageUrl) {
 					return imageUrl;
 				}
-			} catch (e) {
+			} catch {
 				// JSONパースエラーは無視
 			}
 		}
@@ -147,7 +147,7 @@ function parseOGP(html: string, originalUrl: string): AmazonMetadata {
 					const imageUrl = Array.isArray(jsonData.image) ? jsonData.image[0] : jsonData.image;
 					return imageUrl;
 				}
-			} catch (e) {
+			} catch {
 				// JSONパースエラーは無視
 			}
 		}

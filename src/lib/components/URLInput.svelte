@@ -12,7 +12,7 @@
 		isLoading: boolean;
 	}
 
-	let { onSubmit, isLoading }: Props = $props();
+	const { onSubmit, isLoading }: Props = $props();
 
 	let url = $state('');
 

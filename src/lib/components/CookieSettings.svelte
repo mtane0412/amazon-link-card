@@ -16,7 +16,7 @@
 		onClose: () => void;
 	}
 
-	let { isOpen = false, onClose }: Props = $props();
+	const { isOpen = false, onClose }: Props = $props();
 
 	let cookieInput = $state('');
 	let showSuccess = $state(false);

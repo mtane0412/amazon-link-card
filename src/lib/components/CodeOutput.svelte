@@ -10,7 +10,7 @@
 		htmlCode: string;
 	}
 
-	let { htmlCode }: Props = $props();
+	const { htmlCode }: Props = $props();
 
 	let copied = $state(false);
 

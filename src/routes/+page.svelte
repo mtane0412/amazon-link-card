@@ -25,11 +25,11 @@
 	let toastType: 'success' | 'error' | 'warning' = $state('success');
 
 	// ストアの購読
-	let cookie = $state($cookieStore);
+	let _cookie = $state($cookieStore);
 	let linkCard = $state($linkCardStore);
 
 	$effect(() => {
-		cookie = $cookieStore;
+		_cookie = $cookieStore;
 		linkCard = $linkCardStore;
 	});
 
@@ -97,7 +97,7 @@
 			}));
 
 			showToast('リンクカードを生成しました', 'success');
-		} catch (error) {
+		} catch {
 			linkCardStore.update((s) => ({
 				...s,
 				isLoading: false,
